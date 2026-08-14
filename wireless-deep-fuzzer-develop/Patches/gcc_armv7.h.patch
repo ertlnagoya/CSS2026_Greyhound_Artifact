@@ -1,0 +1,24 @@
+--- /usr/local/include/tbb/machine/gcc_armv7.h	2019-09-15 10:00:45.827230020 +0100
++++ /usr/local/include/tbb/machine/gcc_armv7.h	2019-09-15 09:58:38.448122500 +0100
+@@ -27,9 +27,9 @@
+ #endif
+ 
+ //TODO: is ARMv7 is the only version ever to support?
+-#if !(__ARM_ARCH_7A__)
+-#error compilation requires an ARMv7-a architecture.
+-#endif
++//#if !(__ARM_ARCH_7A__)
++//#error compilation requires an ARMv7-a architecture.
++//#endif
+ 
+ #include <sys/param.h>
+ #include <unistd.h>
+@@ -53,7 +53,7 @@
+ 
+ 
+ #define __TBB_compiler_fence()    __asm__ __volatile__("": : :"memory")
+-#define __TBB_full_memory_fence() __asm__ __volatile__("dmb ish": : :"memory")
++#define __TBB_full_memory_fence() 0xffff0fa0 // __asm__ __volatile__("dmb ish": : :"memory")
+ #define __TBB_control_consistency_helper() __TBB_full_memory_fence()
+ #define __TBB_acquire_consistency_helper() __TBB_full_memory_fence()
+ #define __TBB_release_consistency_helper() __TBB_full_memory_fence()

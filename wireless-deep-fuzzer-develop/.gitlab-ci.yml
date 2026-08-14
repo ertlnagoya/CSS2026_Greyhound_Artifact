@@ -1,0 +1,16 @@
+pages:
+  tags:
+    - linux
+    - nodejs
+  script:
+  - mkdir public
+  - cd Documentation
+  - npm install
+  - node shins.js --inline --output ../public/index.html
+  - cp source ../public/source -r
+  - cp app ../public/app -r
+  artifacts:
+    paths:
+    - public
+  only:
+  - develop

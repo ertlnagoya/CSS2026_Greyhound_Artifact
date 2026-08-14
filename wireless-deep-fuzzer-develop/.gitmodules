@@ -1,0 +1,6 @@
+[submodule "Exploits/esp32_esp8266_attacks"]
+	path = Exploits/esp32_esp8266_attacks
+	url = https://github.com/Matheus-Garbelini/esp32_esp8266_attacks
+[submodule "WirelessDeepFuzzer/wifi/eap_module/hostap"]
+	path = WirelessDeepFuzzer/wifi/eap_module/hostap
+	url = http://w1.fi/hostap.git

@@ -1,0 +1,22 @@
+--- pagmo2/CMakeLists.txt	2019-09-15 13:05:48.000000000 +0100
++++ pagmo2/patch_CMakeLists.txt	2019-09-15 13:11:38.000000000 +0100
+@@ -79,8 +79,8 @@
+ include(YACMAThreadingSetup)
+ 
+ # Assemble the flags.
+-set(PAGMO_CXX_FLAGS_DEBUG ${YACMA_CXX_FLAGS} ${YACMA_CXX_FLAGS_DEBUG} ${YACMA_THREADING_CXX_FLAGS})
+-set(PAGMO_CXX_FLAGS_RELEASE ${YACMA_CXX_FLAGS} ${YACMA_THREADING_CXX_FLAGS})
++set(PAGMO_CXX_FLAGS_DEBUG ${YACMA_CXX_FLAGS} ${YACMA_CXX_FLAGS_DEBUG} ${YACMA_THREADING_CXX_FLAGS} -latomic)
++set(PAGMO_CXX_FLAGS_RELEASE ${YACMA_CXX_FLAGS} ${YACMA_THREADING_CXX_FLAGS} -latomic)
+ if(APPLE AND YACMA_COMPILER_IS_CLANGXX)
+   message(STATUS "Clang compiler on OSX detected, setting the standard library to 'libc++'.")
+   list(APPEND PAGMO_CXX_FLAGS_DEBUG "-stdlib=libc++")
+@@ -311,6 +311,8 @@
+     # TBB.
+     target_link_libraries(pagmo PUBLIC TBB::tbb)
+ 
++    target_link_libraries(pagmo PUBLIC -latomic)
++
+     if(PAGMO_WITH_EIGEN3)
+         # Link pagmo to eigen3.
+         target_link_libraries(pagmo PUBLIC Eigen3::eigen3)

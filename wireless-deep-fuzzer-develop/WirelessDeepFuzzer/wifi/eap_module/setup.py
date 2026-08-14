@@ -1,0 +1,66 @@
+from setuptools import Extension
+from setuptools import setup, find_packages
+
+
+module = Extension(
+    "EAPModule",
+    sources=['EAPModule.cpp', 'eap_peer.c',
+             'hostap/src/utils/wpabuf.c',
+             'hostap/src/utils/common.c',
+             'hostap/src/utils/wpa_debug.c',
+             'hostap/src/utils/eloop.c'],
+    include_dirs=[
+        './',
+        './hostap/src/',
+        './hostap/eap_peer/',
+        './hostap/src/utils',
+    ],
+    extra_objects=['libeap.a'],
+    extra_compile_args=['-Wall', '-fpermissive', '-leap', '-lssl', '-shared','-ldl', '-lrt', '-lpthread', '-lcrypto', '-MMD', '-fPIC', '-DPIC', '-g', '-O2', '-DCONFIG_NO_WPA_MSG', '-DCONFIG_NO_STDOUT_DEBUG',
+                        '-DEAP_TLS',
+                        '-DEAP_PEAP',
+                        '-DEAP_TTLS',
+                        '-DEAP_MD5',
+                        '-DEAP_MSCHAPv2',
+                        '-DEAP_GTC',
+                        '-DEAP_OTP',
+                        '-DEAP_PWD',
+                        '-DCONFIG_ECC',
+                        '-DEAP_LEAP',
+                        '-DEAP_PSK',
+                        '-DEAP_PAX',
+                        '-DEAP_SAKE',
+                        '-DEAP_GPSK',
+                        '-DEAP_GPSK_SHA256',
+                        '-DEAP_SERVER_IDENTITY',
+                        '-DEAP_SERVER_TLS',
+                        '-DEAP_SERVER_PEAP',
+                        '-DEAP_SERVER_TTLS',
+                        '-DEAP_SERVER_MD5',
+                        '-DEAP_SERVER_MSCHAPV2',
+                        '-DEAP_SERVER_GTC',
+                        '-DEAP_SERVER_PWD',
+                        '-DEAP_SERVER_PSK',
+                        '-DEAP_SERVER_PAX',
+                        '-DEAP_SERVER_SAKE',
+                        '-DEAP_SERVER_GPSK',
+                        '-DEAP_SERVER_GPSK_SHA256',
+                        '-DIEEE8021X_EAPOL'],
+    libraries=['ssl', 'crypto'],
+    language='c++'
+)
+
+setup(
+    name="EAPModule",
+    version="1.0.1",
+    description="EAP library",
+    author="Matheus Eduardo Garbelini",
+    author_email="mgarbelix@gmail.com",
+    packages=find_packages(),
+    license="MIT",
+    classifiers=[
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
+    ],
+    ext_modules=[module],
+)
