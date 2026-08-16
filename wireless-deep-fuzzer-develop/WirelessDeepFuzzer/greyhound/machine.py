@@ -1,6 +1,7 @@
 from threading import Timer, Thread
 import inspect
 import sys
+from datetime import datetime
 from transitions.extensions import HierarchicalGraphMachine
 from transitions.extensions.states import add_state_features, Tags, _LOGGER
 from transitions.core import State, listify
@@ -145,8 +146,8 @@ class GreyhoundStateMachine(HierarchicalGraphMachine):
     pcap_anomaly_packets_number = 0
 
     def __init__(self, *args, **kwargs):
-
-        self.model_name = inspect.currentframe().f_back.f_code.co_filename.split('/')[-1].split('.py')[0]
+        now = datetime.now()
+        self.model_name = inspect.currentframe().f_back.f_code.co_filename.split('/')[-1].split('.py')[0] + now.strftime("_%Y%m%d_%H%M%S")
         creat_log_dirs(self.model_name)
         fitness.model_name = self.model_name
 
@@ -187,9 +188,9 @@ class GreyhoundStateMachine(HierarchicalGraphMachine):
         def save_file_thread():
             try:
                 temp_pkts = self.pcap_session_packets
-                wrpcap('logs/' + self.model_name + '/sessions/session_' + str(self.file_count), temp_pkts)
-            except:
-                pass
+                wrpcap('logs/' + self.model_name + '/sessions/session_' + str(self.file_count) + '.pcap', temp_pkts)
+            except Exception as e:
+                print('[save_file_thread] Some exception occured: \n' + str(e))
             self.pcap_session_packets = None
             self.pcap_session_packets = []
 
@@ -204,9 +205,9 @@ class GreyhoundStateMachine(HierarchicalGraphMachine):
         def save_file_thread():
             try:
                 temp_pkts = self.pcap_anomaly_packets
-                wrpcap('logs/' + self.model_name + '/anomalies/' + anomaly_name + '_' + str(self.file_count), temp_pkts)
-            except:
-                pass
+                wrpcap('logs/' + self.model_name + '/anomalies/' + anomaly_name + '_' + str(self.file_count) + '.pcap', temp_pkts)
+            except Exception as e:
+                print('[save_file_thread] Some exception occured: \n' + str(e))
             self.pcap_anomaly_packets_number = 0
             self.pcap_anomaly_packets = None
             self.pcap_anomaly_packets = []

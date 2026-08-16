@@ -1,16 +1,16 @@
-FROM python:2.7.17-slim-buster
+FROM python:2.7-slim
 
-ENV HOME /root/
-ENV TERM xterm-256color
-ENV RUNNING_DOCKER ON
+WORKDIR /app
 
-WORKDIR $HOME
+ENV http_proxy=http://10.1.0.20:8080
+ENV https_proxy=http://10.1.0.20:8080
 
-ADD requirements.sh requirements.txt requirements2.txt $HOME
-ADD wifi/ wifi/
-ADD bluetooth/ bluetooth/
+RUN pip install --no-cache-dir numpy
+RUN pip install --no-cache-dir pyrecord
+RUN pip install --no-cache-dir colorama
+RUN pip install --no-cache-dir flask
 
-RUN apt-get update && apt-get install sudo -y && ./requirements.sh && \
-	rm -rf /var/lib/apt/list/* && rm -Rf /root/.cache/pip
 
-CMD tail -f /dev/null
+COPY . /app
+
+CMD ["python", "mqtt_broker.py"]

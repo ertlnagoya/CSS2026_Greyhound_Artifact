@@ -6,7 +6,7 @@ numpy==1.16
 Flask==0.11.1
 pygraphviz==1.5
 colorama==0.4.1
-cryptography==2.7
+#cryptography==2.7
 pycryptodome==3.8.2
 socketio==0.1.7
 ddt==1.2.1
@@ -18,6 +18,6 @@ gevent==1.2.2
 python-engineio==3.8.2.post1
 
 pycallgraph==1.0.1
-pygmo==2.10
+#pygmo==2.10
 socketIO-client==0.7.2
 matplotlib==2.1.1

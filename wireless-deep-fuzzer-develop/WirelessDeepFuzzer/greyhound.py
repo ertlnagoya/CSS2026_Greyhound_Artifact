@@ -6,7 +6,8 @@ from wifi.rpyutils import check_root
 model_list = {
     'wifi_ap': 'wifi_ap.py',
     'wifi_client': 'wifi_client.py',
-    'ble_central': 'ble_central.py'
+    'ble_central': 'ble_central.py',
+    'm5fly_mqtt_broker': 'm5fly_mqtt_broker.py',
 }
 
 if len(sys.argv) < 2:

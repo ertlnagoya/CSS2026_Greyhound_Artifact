@@ -153,8 +153,8 @@ def AnomalyDetected(state, pkt, summary_text):
                 try:
                     wrpcap('logs/' + model_name + '/pcap/' + issue_time_formatted + '_' + summary_text + '.pcap',
                            pkts_to_save)
-                except:
-                    pass
+                except Exception as e:
+                    print('[AnomalyDetected/SaveToPCAP] Some exception occured: \n' + str(e))
 
         if SaveCSVStruct:
             with open('logs/' + model_name + '/csv/' + issue_time_formatted + '.csv', 'w') as csvfile:
